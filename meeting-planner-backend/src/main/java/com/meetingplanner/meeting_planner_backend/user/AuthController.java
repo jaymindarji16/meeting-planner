@@ -1,8 +1,8 @@
 package com.meetingplanner.meeting_planner_backend.user;
 
-import com.meetingplanner.user.dto.LoginRequest;
-import com.meetingplanner.user.dto.SignupRequest;
-import com.meetingplanner.user.dto.UserResponse;
+import com.meetingplanner.meeting_planner_backend.user.dto.LoginRequest;
+import com.meetingplanner.meeting_planner_backend.user.dto.SignupRequest;
+import com.meetingplanner.meeting_planner_backend.user.dto.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

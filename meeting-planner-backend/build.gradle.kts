@@ -28,6 +28,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	// Source: https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
+	implementation("org.springframework.security:spring-security-crypto:7.2.0-M2")
 }
 
 tasks.withType<Test> {

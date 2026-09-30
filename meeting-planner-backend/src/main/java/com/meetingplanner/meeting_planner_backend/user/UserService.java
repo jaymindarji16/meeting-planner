@@ -1,7 +1,7 @@
 package com.meetingplanner.meeting_planner_backend.user;
 
-import com.meetingplanner.user.dto.LoginRequest;
-import com.meetingplanner.user.dto.SignupRequest;
+import com.meetingplanner.meeting_planner_backend.user.dto.LoginRequest;
+import com.meetingplanner.meeting_planner_backend.user.dto.SignupRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

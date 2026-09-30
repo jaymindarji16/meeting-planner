@@ -4,11 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MeetingPlannerBackend
-Application {
+public class MeetingPlannerBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MeetingPlannerBackendApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(MeetingPlannerBackendApplication.class, args);
+    }
 }

@@ -1,8 +1,8 @@
 package com.meetingplanner.meeting_planner_backend.user;
 
-import com.meetingplanner.common.CurrentUser;
-import com.meetingplanner.common.FileStorageService;
-import com.meetingplanner.user.dto.UserResponse;
+import com.meetingplanner.meeting_planner_backend.common.CurrentUser;
+import com.meetingplanner.meeting_planner_backend.common.FileStorageService;
+import com.meetingplanner.meeting_planner_backend.user.dto.UserResponse;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;

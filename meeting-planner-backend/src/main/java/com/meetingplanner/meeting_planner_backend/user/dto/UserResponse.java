@@ -1,6 +1,6 @@
-package com.meetingplanner.user.dto;
+package com.meetingplanner.meeting_planner_backend.user.dto;
 
-import com.meetingplanner.user.User;
+import com.meetingplanner.meeting_planner_backend.user.User;
 
 public record UserResponse(Long id, String name, String email, boolean hasAvatar) {
 
