@@ -1,4 +1,4 @@
-package com.meetingplanner.user;
+package com.meetingplanner.meeting_planner_backend.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.meetingplanner.user;
+package com.meetingplanner.meeting_planner_backend.user;
 
 import com.meetingplanner.user.dto.LoginRequest;
 import com.meetingplanner.user.dto.SignupRequest;
