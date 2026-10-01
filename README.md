@@ -35,8 +35,7 @@ Two terminals.
     # Windows: .\gradlew.bat bootRun
 
 The backend starts on `http://localhost:8080`. First run creates the H2 data
-file under `./data/` and the avatar directory under `./uploads/`. Both are
-gitignored — you'll see them appear after the first request.
+file under `./data/` and the avatar directory under `./uploads/`.
 
 ### Frontend
 
@@ -83,7 +82,7 @@ the password and returns the user. The frontend stores the user object in
 request. Controllers read it from the header.
 
 No JWT, no sessions, no Spring Security filter chain. A full security setup
-is a lot of ceremony for a 2-hour prototype, and the exercise explicitly says
+is a lot of ceremony for prototype, and the exercise explicitly says
 not to build production-grade. The trade-off (the header is trivially
 spoofable) is documented under "Known limitations".
 
@@ -117,7 +116,7 @@ defensible choice, but I opted for the simpler behaviour and noted it here.
 participant of. It runs two queries (organizer meetings, participant meetings)
 and merges them in Java. A single JPQL query with a `left join` and an `OR`
 condition looked cleaner on paper but was returning wrong results in
-Hibernate 7 — see "Problems I hit" below.
+Hibernate 7
 
 ### Avatars stored on disk, path-traversal guarded
 
