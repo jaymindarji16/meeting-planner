@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Component
 public class CurrentUser {
 
+    
     private final UserRepository userRepository;
 
     public CurrentUser(UserRepository userRepository) {

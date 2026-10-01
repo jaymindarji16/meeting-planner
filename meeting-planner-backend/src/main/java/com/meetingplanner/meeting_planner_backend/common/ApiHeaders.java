@@ -8,6 +8,5 @@ public final class ApiHeaders {
 
     private ApiHeaders() {}
 
-    /** Prototype auth: client sends the logged-in user's id in this header. */
     public static final String USER_ID = "X-User-Id";
 }
