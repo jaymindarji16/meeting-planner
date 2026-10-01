@@ -1,5 +1,6 @@
 package com.meetingplanner.meeting_planner_backend.user;
 
+import com.meetingplanner.meeting_planner_backend.common.ApiHeaders;
 import com.meetingplanner.meeting_planner_backend.common.CurrentUser;
 import com.meetingplanner.meeting_planner_backend.common.FileStorageService;
 import com.meetingplanner.meeting_planner_backend.user.dto.UserResponse;
@@ -31,18 +32,18 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserResponse> list(@RequestHeader(value = "X-User-Id", required = false) Long userId) {
+    public List<UserResponse> list(@RequestHeader(value = ApiHeaders.USER_ID, required = false) Long userId) {
         currentUser.require(userId);
         return userService.findAll().stream().map(UserResponse::from).toList();
     }
 
     @GetMapping("/me")
-    public UserResponse me(@RequestHeader("X-User-Id") Long userId) {
+    public UserResponse me(@RequestHeader(ApiHeaders.USER_ID) Long userId) {
         return UserResponse.from(currentUser.require(userId));
     }
 
     @PostMapping("/me/avatar")
-    public UserResponse uploadAvatar(@RequestHeader("X-User-Id") Long userId,
+    public UserResponse uploadAvatar(@RequestHeader(ApiHeaders.USER_ID) Long userId,
                                      @RequestParam("file") MultipartFile file) {
         User user = currentUser.require(userId);
         String filename = fileStorage.saveAvatar(user.getId(), file);

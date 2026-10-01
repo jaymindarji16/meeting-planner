@@ -1,10 +1,10 @@
 package com.meetingplanner.meeting_planner_backend.meeting.dto;
 
-import com.meetingplanner.meeting_planner_backend.meeting.Meeting;
-import com.meetingplanner.meeting_planner_backend.meeting.MeetingParticipant;
-
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.meetingplanner.meeting_planner_backend.meeting.Meeting;
+import com.meetingplanner.meeting_planner_backend.meeting.MeetingParticipant;
 
 public record MeetingResponse(
     Long id,
@@ -19,30 +19,30 @@ public record MeetingResponse(
 ) {
     public record ParticipantView(Long id, String name, String email, boolean hasAvatar, String status) {}
 
-    public static MeetingResponse from(Meeting m) {
-        List<ParticipantView> parts = m.getParticipants().stream()
+    public static MeetingResponse from(Meeting meeting) {
+        List<ParticipantView> parts = meeting.getParticipants().stream()
             .map(MeetingResponse::toParticipantView)
             .toList();
         return new MeetingResponse(
-            m.getId(),
-            m.getTitle(),
-            m.getDescription(),
-            m.getScheduledAt(),
-            m.getDurationMinutes(),
-            m.getLocation(),
-            m.getOrganizer().getId(),
-            m.getOrganizer().getName(),
+            meeting.getId(),
+            meeting.getTitle(),
+            meeting.getDescription(),
+            meeting.getScheduledAt(),
+            meeting.getDurationMinutes(),
+            meeting.getLocation(),
+            meeting.getOrganizer().getId(),
+            meeting.getOrganizer().getName(),
             parts
         );
     }
 
-    private static ParticipantView toParticipantView(MeetingParticipant p) {
+    private static ParticipantView toParticipantView(MeetingParticipant meetingParticipant) {
         return new ParticipantView(
-            p.getUser().getId(),
-            p.getUser().getName(),
-            p.getUser().getEmail(),
-            p.getUser().getAvatarFilename() != null,
-            p.getStatus().name()
+            meetingParticipant.getUser().getId(),
+            meetingParticipant.getUser().getName(),
+            meetingParticipant.getUser().getEmail(),
+            meetingParticipant.getUser().getAvatarFilename() != null,
+            meetingParticipant.getStatus().name()
         );
     }
 }

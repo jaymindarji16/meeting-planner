@@ -28,7 +28,11 @@ import { User } from '../../core/auth.service';
 
         <label>
           When
-          <input [(ngModel)]="scheduledAt" type="datetime-local" />
+          <input
+            [(ngModel)]="scheduledAt"
+            type="datetime-local"
+            [min]="minDateTime"
+          />
         </label>
 
         <label>
@@ -70,6 +74,9 @@ export class MeetingCreateComponent implements OnInit {
   durationMinutes?: number;
   location = '';
 
+  /** Minimum allowed value for the datetime-local picker (now, formatted). */
+  readonly minDateTime = this.formatForInput(new Date());
+
   users = signal<User[]>([]);
   selected = new Set<number>();
   error = signal<string>('');
@@ -95,6 +102,22 @@ export class MeetingCreateComponent implements OnInit {
 
   submit() {
     this.error.set('');
+
+    // Client-side guard: reject past meetings before hitting the API.
+    if (!this.scheduledAt) {
+      this.error.set('Please choose a date and time.');
+      return;
+    }
+    const chosen = new Date(this.scheduledAt);
+    if (isNaN(chosen.getTime())) {
+      this.error.set('Invalid date and time.');
+      return;
+    }
+    if (chosen.getTime() <= Date.now()) {
+      this.error.set('Meeting time must be in the future.');
+      return;
+    }
+
     this.loading.set(true);
 
     this.meetingService
@@ -113,5 +136,17 @@ export class MeetingCreateComponent implements OnInit {
           this.error.set(err?.error?.error ?? 'Failed to create meeting');
         },
       });
+  }
+
+  /**
+   * Formats a Date as a string the datetime-local input accepts:
+   * "YYYY-MM-DDTHH:MM" in local time (no timezone suffix).
+   */
+  private formatForInput(d: Date): string {
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return (
+      `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}` +
+      `T${pad(d.getHours())}:${pad(d.getMinutes())}`
+    );
   }
 }
