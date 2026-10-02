@@ -11,7 +11,7 @@ This is intentionally a prototype, not production code.
 ## Stack
 
 - **Backend:** Java 17, Spring Boot 3.4.1, Spring Data JPA, H2 (file-backed), BCrypt
-- **Frontend:** Angular 17+ (standalone components, signals), SCSS
+- **Frontend:** Angular 20+ (standalone components, signals), SCSS
 - **Storage:** local filesystem for avatars
 
 Repo layout:
