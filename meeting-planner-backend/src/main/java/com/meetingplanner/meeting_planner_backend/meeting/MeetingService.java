@@ -40,13 +40,13 @@ public class MeetingService {
                 "Meeting time must be in the future");
         }
 
-        Meeting m = new Meeting();
-        m.setTitle(req.title().trim());
-        m.setDescription(req.description());
-        m.setScheduledAt(req.scheduledAt());
-        m.setDurationMinutes(req.durationMinutes());
-        m.setLocation(req.location());
-        m.setOrganizer(organizer);
+        Meeting meeting = new Meeting();
+        meeting.setTitle(req.title().trim());
+        meeting.setDescription(req.description());
+        meeting.setScheduledAt(req.scheduledAt());
+        meeting.setDurationMinutes(req.durationMinutes());
+        meeting.setLocation(req.location());
+        meeting.setOrganizer(organizer);
 
         if (req.participantIds() != null) {
             for (Long pid : new LinkedHashSet<>(req.participantIds())) {
@@ -54,11 +54,11 @@ public class MeetingService {
                 User u = userRepository.findById(pid)
                     .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.BAD_REQUEST, "Unknown user id: " + pid));
-                m.getParticipants().add(new MeetingParticipant(m, u));
+                meeting.getParticipants().add(new MeetingParticipant(meeting, u));
             }
         }
 
-        return meetingRepository.save(m);
+        return meetingRepository.save(meeting);
     }
 
     @Transactional(readOnly = true)
@@ -79,25 +79,25 @@ public class MeetingService {
 
     @Transactional(readOnly = true)
     public Meeting getVisible(Long meetingId, Long userId) {
-        Meeting m = meetingRepository.findById(meetingId)
+        Meeting meeting = meetingRepository.findById(meetingId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Meeting not found"));
-        User u = userRepository.findById(userId)
+        User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unknown user"));
-        if (!accessPolicy.canView(m, u)) {
+        if (!accessPolicy.canView(meeting, user)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You are not part of this meeting");
         }
-        return m;
+        return meeting;
     }
 
     @Transactional
     public void delete(Long meetingId, Long userId) {
-        Meeting m = meetingRepository.findById(meetingId)
+        Meeting meeting = meetingRepository.findById(meetingId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Meeting not found"));
-        User u = userRepository.findById(userId)
+        User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unknown user"));
-        if (!accessPolicy.canDelete(m, u)) {
+        if (!accessPolicy.canDelete(meeting, user)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only the organizer can delete this meeting");
         }
-        meetingRepository.delete(m);
+        meetingRepository.delete(meeting);
     }
 }

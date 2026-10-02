@@ -24,20 +24,20 @@ public class UserService {
         if (userRepository.existsByEmail(req.email())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already registered");
         }
-        User u = new User();
-        u.setName(req.name().trim());
-        u.setEmail(req.email().trim().toLowerCase());
-        u.setPasswordHash(passwordEncoder.encode(req.password()));
-        return userRepository.save(u);
+        User user = new User();
+        user.setName(req.name().trim());
+        user.setEmail(req.email().trim().toLowerCase());
+        user.setPasswordHash(passwordEncoder.encode(req.password()));
+        return userRepository.save(user);
     }
 
     public User login(LoginRequest req) {
-        User u = userRepository.findByEmail(req.email().trim().toLowerCase())
+        User user = userRepository.findByEmail(req.email().trim().toLowerCase())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
-        if (!passwordEncoder.matches(req.password(), u.getPasswordHash())) {
+        if (!passwordEncoder.matches(req.password(), user.getPasswordHash())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
-        return u;
+        return user;
     }
 
     public List<User> findAll() {
